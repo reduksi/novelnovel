@@ -1,0 +1,60 @@
+<%-include('Partials/head')%>
+<div style="margin-top: 100px;margin-left: 100px">
+  <h1>User Profile</h1>
+  <p style="font-size: 20px">Name :</p>
+  <p style="font-size: 20px">Email :</p>
+</div>
+<!-- Modal -->
+<button
+  type="button"
+  class="btn btn-info btn-lg position"
+  data-toggle="modal"
+  data-target="#myModal"
+>
+  Add Novel
+</button>
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">Add new novel</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          <textarea id="summernote" name="editordata"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="position">
+    <br>
+  <h1>Your Novel</h1>
+  <table id="novel">
+    <tr>
+      <th>Novel</th>
+      <th>Actions</th>
+    </tr>
+    <tr>
+       <td>Judul Novel</td>
+       <td><a href="#" class="btn btn-info" role="button">Edit</a> &nbsp<a href="#" class="btn btn-warning" role="button">Delete</a></td>
+    </tr>
+  </table>
+</div>
+<script>
+  $("#summernote").summernote({
+    placeholder: "Hello bootstrap 4",
+    tabsize: 2,
+    height: 100
+  });
+</script>
+<%-include('Partials/foot')%>

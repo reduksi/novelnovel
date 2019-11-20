@@ -27,5 +27,14 @@ routes.post('/register',(req,res)=>{
         res.send(err)
     })
 })
+routes.get('/article',(req,res)=>{
+    res.render('article')
+})
+routes.get('/account',(req,res)=>{
+    res.render('account')
+})
+routes.get('/article/content',(req,res)=>{
+    res.render('articleContent')
+})
 
 module.exports = routes
