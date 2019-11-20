@@ -1,0 +1,21 @@
+<%- include('Partials/head') %>
+<!-- Photo Grid-->
+<div style="margin-top: 70px">
+<%for(let i=0;i<4;i++){%>
+<div class="w3-row-padding w3-display-bottom w3-margin-top w3-content">
+  <%for(let j=0;j<3;j++){%>
+  <div class="w3-third w3-container">
+    <img src="/img/open-bible-2294878.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity" />
+    <div class="w3-container w3-white">
+      <a href="/article/content" style="text-decoration: none"><b>Judul Artikel</b></a>
+      <p>
+        Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum,
+        porta lectus vitae, ultricies congue gravida diam non fringilla.
+      </p>
+    </div>
+  </div>
+  <%}%>
+</div>
+<%}%>
+</div>
+<%- include('Partials/foot') %>
