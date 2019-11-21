@@ -1,20 +1,18 @@
 <%- include('Partials/head') %>
 <!-- Photo Grid-->
-<div style="margin-top: 70px">
-<%for(let i=0;i<4;i++){%>
-<div class="w3-row-padding w3-display-bottom w3-margin-top w3-content">
-  <%for(let j=0;j<3;j++){%>
-  <div class="w3-third w3-container">
-    <img src="/img/Flow_ollnzm.jpg" alt="book" style="width:100%" class="w3-hover-opacity" />
-    <div class="w3-container w3-white">
-      <a href="/article/content" style="text-decoration: none" ><b style="font-size: 20px">Judul Artikel</b></a>
-      <p>
-        Nama Penulis
-      </p>
+<div class="container">
+  <div style="margin-top: 70px" class="row justify-content-md-center">
+    <%for(let i=0;i<articles.length;i++){%>
+      <div class="col col-lg-4">
+        <img src="/img/Flow_ollnzm.jpg" alt="book" style="width:100%" class="w3-hover-opacity" />
+        <div class="">
+          <a href="/article/<%=articles[i].id%>/content" style="text-decoration: none" ><b style="font-size: 20px"><%=articles[i].title%></b></a>
+          <p>
+            <%=articles[i].username%>
+          </p>
+        </div>
+      </div>
+    <%}%>
     </div>
-  </div>
-  <%}%>
-</div>
-<%}%>
 </div>
 <%- include('Partials/foot') %>
