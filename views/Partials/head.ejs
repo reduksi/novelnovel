@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <title>W3.CSS Template</title>
+  <title>KOMUNITAS NOVEL</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -9,11 +9,25 @@
   <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
   <script>
+    if(localStorage.login == "false")
+        {
+        window.location.href = "/";
+        }
+      
+        function asd(){
+          document.getElementById('hiddenId').value = localStorage.getItem('idUser')
+        }
+        
       $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
         height: 100
       });
+      
+        function logout(){
+        localStorage.setItem("login", "false");
+        location.reload();     
+      }
   </script>
   <link href="/styles/style.css" type="text/css" rel="stylesheet"></link>
   <style type="text/css" rel="stylesheet"></style>
@@ -28,7 +42,7 @@
       font-family: "Karma", sans-serif;
     }
   </style>
-  <body>
+  <body onload="asd()">
     <!-- Sidebar (hidden by default) -->
     <nav class="navbar navbar-inverse">
       <div class="container-fluid" >
@@ -37,7 +51,11 @@
         </div>
         <ul class="nav navbar-nav">
           <li><a href="/article">Article</a></li>
-          <li><a href="/account">Account</a></li>
+          <li><form action="/account" method="POST">
+            <input type="hidden" id='hiddenId' name="id">
+            <input type="submit" class="btn btn-info" value="Account">
+          </form></li>
+          <li><a href="/" onclick="logout()">Logout</a></li>
         </ul>
       </div>
     </nav>

@@ -2,7 +2,14 @@
 const pwdGenerator = require('../helper/pass')
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
-  class User extends Model {}
+  class User extends Model {
+    getFullName(){
+      return this.first_name + ' ' + this.last_name
+    }
+    static encrypt(secret, pass){
+      return pwdGenerator(secret,pass)
+    }
+  }
   User.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING,
@@ -12,12 +19,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {hooks:{
     beforeCreate: (instance,options) => {
       let secret = 'hacktiv8'
-      instance.password = pwdGenerator(secret,instance.password)
+      instance.password = User.encrypt(secret, instance.password)
     }
   },sequelize});
   User.associate = function(models) {
     // associations can be defined here
-    User.belongsToMany(models.Article,{through:models.UserArticle})
+    User.hasMany(models.Article)
+    // User.belongsToMany(models.Article,{through:models.UserArticle})
   };
   return User;
 };

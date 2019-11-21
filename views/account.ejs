@@ -1,15 +1,22 @@
 <%-include('Partials/head')%>
 <div style="margin-top: 100px;margin-left: 100px">
   <h1>User Profile</h1>
-  <p style="font-size: 20px">Name :</p>
-  <p style="font-size: 20px">Email :</p>
+  <p style="font-size: 20px">Name : <%= user.first_name +' '+user.last_name%></p>
+  <p style="font-size: 20px">Email : <%= user.email %></p>
 </div>
+
+<script>
+  function ids(){
+    document.getElementById('user').value = localStorage.getItem("idUser");
+  }
+</script>
 <!-- Modal -->
 <button
   type="button"
   class="btn btn-info btn-lg position"
   data-toggle="modal"
   data-target="#myModal"
+  onclick="ids()"
 >
   Add Novel
 </button>
@@ -24,8 +31,11 @@
         <h4 class="modal-title">Add new novel</h4>
       </div>
       <div class="modal-body">
-        <form method="post">
+        <form action="/account/addnovel" method="post">
+          <input type="hidden" name="UserId" id="user">
+          <input type="text" class="form-control" id="title" name="title" placeholder="Judul"><br>
           <textarea id="summernote" name="editordata"></textarea>
+          <input type="submit" class="btn btn-info" value="Submit novel">
         </form>
       </div>
       <div class="modal-footer">
@@ -44,24 +54,58 @@
       <th>Novel</th>
       <th>Actions</th>
     </tr>
+    <%for(let i = 0; i < user.Articles.length; i++){%>
     <tr>
-       <td>Judul Novel</td>
-       <td><button
-        type="button"
-        class="btn btn-info btn-lg position"
-        data-toggle="modal"
-        data-target="#myModal"
-      >
-        Edit Novel
-      </button> &nbsp<a href="#" class="btn btn-warning" role="button">Delete</a></td>
+       <td><%=user.Articles[i].title%></td>
+       <td><a href="#" class="btn btn-info" role="button" data-toggle="modal"
+        data-target="#editModal" onclick="edit('<%=user.Articles[i].id%>', '<%=user.Articles[i].title%>', '<%=user.Articles[i].content%>')">Edit</a> &nbsp; <a href="/account/deleteNovel/<%=user.Articles[i].id%>" class="btn btn-warning" role="button">Delete</a></td>
     </tr>
+    <%}%>
   </table>
 </div>
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/account/addnovel" method="post">
+          <input type="hidden" name="UserId" id="useredit">
+          <input type="text" class="form-control" id="titles" name="title" placeholder="Judul"><br>
+          <textarea id="summernote2" name="editordata" class="editor"></textarea>
+          <input type="submit" class="btn btn-info" value="Submit novel">
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
 <script>
+  function edit(id,title,data){
+    document.getElementById('useredit').value = id
+    document.getElementById('titles').value = title
+    $(".editor").summernote('code',data)
+  }
   $("#summernote").summernote({
     placeholder: "Hello bootstrap 4",
     tabsize: 2,
     height: 100
   });
+  $(document).ready(function() {
+        $('#summernote').summernote({
+          tabsize: 2,
+          height: 500
+        });
+        $('#summernote2').summernote({
+          tabsize: 2,
+          height: 500
+        });
+    });
 </script>
-<%-include('Partials/foot')%>
